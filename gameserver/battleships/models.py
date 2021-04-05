@@ -27,6 +27,10 @@ class Game(models.Model):
     modified_on = models.DateTimeField(auto_now=True)
     players = models.ManyToManyField(Player)
 
+    def __str__(self):
+        return self.name
+        
+
 class Coords(models.Model):
     # Table to save coords for the ships and fire(s)
     x = models.IntegerField()
@@ -35,6 +39,9 @@ class Coords(models.Model):
 
     def __str__(self):
         return f"({self.x}, {self.y})"
+
+    class Meta:
+        verbose_name_plural = "coords"
 
 
 class Ship(models.Model):
@@ -63,3 +70,4 @@ class Fire(models.Model):
 
     class Meta:
         ordering = ['created_at']
+        verbose_name_plural = "Fire"

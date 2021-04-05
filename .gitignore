@@ -137,8 +137,13 @@ workspace.xml
 # Poetry
 poetry.lock
 
-users/migrations/0001_initial.py
-gameserver/gameserver/__pycache__/urls.cpython-38.pyc
+
+
 gameserver/battleships/migrations/0001_initial.py
 gameserver/db.sqlite3
 gameserver/db.sqlite3
+gameserver/gameserver/__pycache__/__init__.cpython-38.pyc
+gameserver/gameserver/__pycache__/settings.cpython-38.pyc
+gameserver/gameserver/__pycache__/wsgi.cpython-38.pyc
+gameserver/gameserver/__pycache__/urls.cpython-38.pyc
+
