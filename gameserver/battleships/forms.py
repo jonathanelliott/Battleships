@@ -1,10 +1,10 @@
-from django import forms
+from django.forms import ModelForm
 
 from .models import Game
 
-class CreateGrid(forms.Form): 
-    maximum_x = forms.IntegerField(label='X', max_value=101)
-    maximum_y = forms.IntegerField(label='Y', max_value=101)
-
+class CreateGame(ModelForm): 
+    class Meta:
+        model = Game
+        fields = ['name', 'maximum_x', 'maximum_y', 'ships_per_person']
 
         
