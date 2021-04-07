@@ -1,5 +1,6 @@
-from django.db import models
+import random
 
+from django.db import models
 from django.contrib.auth.models import User
 
 class Player(models.Model):
@@ -10,10 +11,10 @@ class Player(models.Model):
     modified_on = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.nickname
+        return self.player.username
 
     class Meta:
-        ordering = ['nickname']
+        ordering = ['player']
 
 
 class Game(models.Model):
@@ -23,9 +24,13 @@ class Game(models.Model):
     maximum_x = models.IntegerField(default=8)
     maximum_y = models.IntegerField(default=8)
     ships_per_person = models.IntegerField(default=5)
+    created_by = models.ForeignKey(User, related_name='games', on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     modified_on = models.DateTimeField(auto_now=True)
     players = models.ManyToManyField(Player)
+
+    def __str__(self):
+        return self.name
 
 class Coords(models.Model):
     # Table to save coords for the ships and fire(s)
@@ -35,6 +40,9 @@ class Coords(models.Model):
 
     def __str__(self):
         return f"({self.x}, {self.y})"
+
+    class Meta:
+        verbose_name_plural = "coords"
 
 
 class Ship(models.Model):
@@ -63,3 +71,4 @@ class Fire(models.Model):
 
     class Meta:
         ordering = ['created_at']
+        verbose_name_plural = "Fire"

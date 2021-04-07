@@ -1,0 +1,73 @@
+{% extends 'battleships/base.html' %}
+
+{% block title %}Dashboard | {% endblock %}
+
+{% block content %}
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb-item">
+      <li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Dashboard</a></li>
+      <li class="breadcrumb-item"><a href="#">My Account</a></li>
+      <li class="breadcrumb-item active" aria-current="page"><a href="#">Games</a></li>
+    </ol>
+</nav>
+
+<h2>Create a New Board?</h2>
+
+<h3> Please enter X and Y below: </h3>
+
+<div class="row">
+    <div class="col-6">
+        <form method='post', action=".">
+            {% csrf_token %}
+            {{ form.as_p}}
+            <button type="submit" class="btn btn-primary">Create New Board</button>
+                
+            {% if form.errors %}
+                <div class="alert alert-warning" role="alert">
+                    {{ form.non_field_errors }}
+
+                    {% for field in form %}
+                        {% if field.errors %}
+                            <div class="form-group row">
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    {{ field.label }}: {{ field.errors }}
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </form>
+    </div>
+</div>
+
+<h2> Test Board View</h2>
+
+<table border="2">
+    <tr>
+        <th></th>
+        {% for i in xrange %}
+            <th width="20px">{{ forloop.counter }}</th>
+        {% endfor %}
+    </tr>
+    {% for row in grid %}
+    <tr>
+        <th height="20px">{{ forloop.counter }}</th>
+        {% for cell in row %}
+            {% if cell %}
+            <td bgcolor="{{ cell.player.get_colour }}" style="text-align:center">
+                <span title="{{ cell.name }} ({{ cell.player }})">&#9634;</span>
+            </td>
+            {% else %}
+                <td bgcolor="lightgray"></td>
+            {% endif %}
+        {% endfor %}
+    </tr>
+    {% endfor %}
+</table>
+
+{% endblock %}
